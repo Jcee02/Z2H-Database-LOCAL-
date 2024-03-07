@@ -13,7 +13,7 @@ To read number of items in .db either way echo -ne it with a custom binary or ed
 Usage: ./bin/(mach-o executable) <filename>.db 
 
 
-
+1.0
 
 
 Looking forwards adding more complexity to this code in later days.
