@@ -10,11 +10,10 @@ Requirements for functioning database:
 Just toying around with some database manager made with C using POSIX file descriptors
 To read number of items in .db either way echo -ne it with a custom binary or edit it 
 
-Usage: ./bin/(mach-o executable) <filename>.db 
+Currently testing -n (new entry) and -f command line flags.
 
-
-1.0
-
+TO:DO
+Flag for parsing an entry
 
 Looking forwards adding more complexity to this code in later days.
 
