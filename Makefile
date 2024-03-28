@@ -1,6 +1,9 @@
-TARGET = bin/final
+TARGET = bin/dbview
 SRC = $(wildcard src/*.c)
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
+
+run: clean default
+	./$(TARGET) -q -f mydb.db
 
 default: $(TARGET)
 
