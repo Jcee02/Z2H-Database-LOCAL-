@@ -7,9 +7,7 @@ struct db_header_t {
 };
 
 
-<<<<<<< HEAD
 int parse_database_header(int, int*);
-=======
 
 struct employee_t {
   char name[256];
@@ -23,6 +21,5 @@ int validate_db_header(int fd, struct db_header_t **headerOut);
 int rd_employees(int fd, struct db_header_t *, struct employee_t **);
 int add_employee(struct db_header_t*, struct employee_t*, char* addstring);
 void output_file(int fd, struct db_header_t *);
->>>>>>> e233001 (Added rd_employee and add_employee functions)
 
 #endif
