@@ -7,18 +7,20 @@
 #include "../include/status.h"
 
 
-#define OPSTR "nf:"
+#define OPSTR "nf:a:"
 
 void print_usage(char**);
 
 int main(int argc, char *argv[]){
     
     char *filepath = NULL;
+    char *addstring = NULL;
     bool newfile = false;
     int c;
     
     int dbfd = -1;
     struct db_header_t *dbhdr = NULL;
+    struct employee_t *employees = NULL;
     while ((c = getopt(argc, argv, OPSTR)) != -1) {
         switch(c){
             case 'n':
@@ -26,6 +28,8 @@ int main(int argc, char *argv[]){
                 break;
             case 'f':
                 filepath = optarg;
+            case 'a':
+                addstring = optarg;
                 break;
             case '?':
                 printf("Unknown option -%c\n", c);
@@ -63,6 +67,17 @@ int main(int argc, char *argv[]){
               exit(EXIT_FAILURE);
           }
       }
+
+
+    if (rd_employees(dbfd, dbhdr, &employees) != STATUS_SUCCESS) {
+        printf("Failed to read employees\n");
+        return 0;
+    }
+    if (addstring) {
+        dbhdr->count++;
+        employees = realloc(employees, dbhdr->count*sizeof(struct employee_t));
+        add_employee(dbhdr, employees, addstring);
+    }
     output_file(dbfd, dbhdr);
 
     return EXIT_SUCCESS;

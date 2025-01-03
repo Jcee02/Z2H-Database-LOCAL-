@@ -12,7 +12,7 @@ int create_db_file(char *filename) {
     int fd = open(filename, O_RDWR); 
     if (fd != -1) {
         close(fd);
-        printf("File already exists in database\n");
+  printf("File already exists in database\n");
         return STATUS_FAILURE;
     }
     fd = open(filename, O_RDWR | O_CREAT, 0644);
