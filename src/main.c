@@ -6,11 +6,8 @@
 #include "../include/parse.h"
 
 
-<<<<<<< HEAD
-=======
 #define OPSTR "nf:a:"
 
->>>>>>> e233001 (Added rd_employee and add_employee functions)
 void print_usage(char**);
 
 int main(int argc, char *argv[]){
@@ -19,16 +16,13 @@ int main(int argc, char *argv[]){
     char *addstring = NULL;
     bool newfile = false;
     int c;
-<<<<<<< HEAD
 
     while ((c = getopt(argc, argv, "nf:")) != -1) {
-=======
     
     int dbfd = -1;
     struct db_header_t *dbhdr = NULL;
     struct employee_t *employees = NULL;
     while ((c = getopt(argc, argv, OPSTR)) != -1) {
->>>>>>> e233001 (Added rd_employee and add_employee functions)
         switch(c){
             case 'n':
                 newfile = true;
@@ -52,11 +46,9 @@ int main(int argc, char *argv[]){
         return EXIT_SUCCESS;
     }
 
-<<<<<<< HEAD
     printf("Newfile: %d\n", newfile);
     printf("File path: %s\n", filepath); 
     
-=======
     if (newfile) {
         dbfd = create_db_file(filepath);
         if (dbfd == STATUS_FAILURE) {
@@ -92,7 +84,6 @@ int main(int argc, char *argv[]){
     }
     output_file(dbfd, dbhdr);
 
->>>>>>> e233001 (Added rd_employee and add_employee functions)
     return EXIT_SUCCESS;
 }
 
