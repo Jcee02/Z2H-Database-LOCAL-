@@ -10,7 +10,6 @@
 #include <string.h>
 #include "../include/parse.h"
 #include "../include/status.h"
->>>>>>> e233001 (Added rd_employee and add_employee functions)
 
 int add_employee(struct db_header_t *dbhdr, struct employee_t *employees, char *addstring) {
     char* name = strtok(addstring, ",");
@@ -21,6 +20,7 @@ int add_employee(struct db_header_t *dbhdr, struct employee_t *employees, char *
     strncpy(employees[dbhdr->count-1].name, name, sizeof(employees[dbhdr->count-1].name));
     strncpy(employees[dbhdr->count-1].addr, addr, sizeof(employees[dbhdr->count-1].addr));
     employees[dbhdr->count-1].hours = atoi(hours);
+    return STATUS_SUCCESS;
   
 }
 int rd_employees(int fd, struct db_header_t *dbhdr, struct employee_t **employeeOut) {
