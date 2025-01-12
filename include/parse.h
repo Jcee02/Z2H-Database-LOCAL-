@@ -23,6 +23,6 @@ int validate_db_header(int fd, struct db_header_t **headerOut);
 // employee_t** is a heap-allocated employee buffer we are writing to -> main
 int rd_employees(int fd, struct db_header_t *, struct employee_t **);
 int add_employee(struct db_header_t*, struct employee_t*, char* addstring);
-void output_file(int fd, struct db_header_t *);
+void output_file(int fd, struct db_header_t *dbhdr, struct employee_t *employees);
 
 #endif

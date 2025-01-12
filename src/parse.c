@@ -10,14 +10,21 @@
 #include "../include/status.h"
 
 int add_employee(struct db_header_t *dbhdr, struct employee_t *employees, char *addstring) {
+    printf("%s\n", addstring);
     char* name = strtok(addstring, ",");
     char* addr = strtok(NULL, ",");
     char* hours = strtok(NULL, ",");
+
+    
+    printf("%s %s %s\n", name, addr, hours);
     
 
     strncpy(employees[dbhdr->count-1].name, name, sizeof(employees[dbhdr->count-1].name));
     strncpy(employees[dbhdr->count-1].addr, addr, sizeof(employees[dbhdr->count-1].addr));
     employees[dbhdr->count-1].hours = atoi(hours);
+
+
+    return EXIT_SUCCESS;
   
 }
 int rd_employees(int fd, struct db_header_t *dbhdr, struct employee_t **employeeOut) {
@@ -111,17 +118,25 @@ int validate_db_header(int fd, struct db_header_t **headerOut) {
 
 }
 
-void output_file(int fd, struct db_header_t *dbhdr)  {
-  if (fd < 0) {    printf("Bad FD from the user \n");
+void output_file(int fd, struct db_header_t *dbhdr, struct employee_t *employees)  {
+  if (fd < 0) {
+    printf("Bad FD from the user \n");
     exit(EXIT_FAILURE);
-    }
+  }
+
+  int count_at_host = dbhdr->count;
   dbhdr->version = htons(dbhdr->version);
   dbhdr->count = htons(dbhdr->count);
   dbhdr->magic = htonl(dbhdr->magic);
-  dbhdr->filesize = htonl(dbhdr->filesize);
+  dbhdr->filesize = htonl(sizeof(struct db_header_t) + (sizeof(struct employee_t) * count_at_host));
 
   lseek(fd, 0, SEEK_SET);
   write(fd, dbhdr, sizeof(struct db_header_t));
+  int i = 0;
+  for (; i < count_at_host; i++) {
+    employees[i].hours = htonl(employees[i].hours);
+    write(fd, &employees[i], sizeof(struct employee_t));
+  }
 
   return;
 } 

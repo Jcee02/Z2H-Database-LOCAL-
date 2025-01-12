@@ -28,6 +28,7 @@ int main(int argc, char *argv[]){
                 break;
             case 'f':
                 filepath = optarg;
+                break;
             case 'a':
                 addstring = optarg;
                 break;
@@ -75,10 +76,10 @@ int main(int argc, char *argv[]){
     }
     if (addstring) {
         dbhdr->count++;
-        employees = realloc(employees, dbhdr->count*sizeof(struct employee_t));
+        employees = realloc(employees, dbhdr->count*(sizeof(struct employee_t)));
         add_employee(dbhdr, employees, addstring);
     }
-    output_file(dbfd, dbhdr);
+    output_file(dbfd, dbhdr, employees);
 
     return EXIT_SUCCESS;
 }
