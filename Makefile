@@ -6,7 +6,8 @@ run: clean default
 
 	./$(TARGET) -f mydba.db -n
 	./$(TARGET) -f mydba.db -a "Juan T.,Calzada Norte 198,420"
-
+	./$(TARGET) -f mydba.db -a "Pablo D.,625 Santa Maria,60"
+	./$(TARGET) -f mydba.db -l
 default: $(TARGET)
 
 clean:

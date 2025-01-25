@@ -10,11 +10,11 @@
 #include "../include/status.h"
 
 int add_employee(struct db_header_t *dbhdr, struct employee_t *employees, char *addstring) {
-    printf("%s\n", addstring);
+    // printf("%s\n", addstring);
     char* name = strtok(addstring, ",");
     char* addr = strtok(NULL, ",");
     char* hours = strtok(NULL, ",");
-
+    
     
     printf("%s %s %s\n", name, addr, hours);
     
@@ -141,6 +141,12 @@ void output_file(int fd, struct db_header_t *dbhdr, struct employee_t *employees
   return;
 } 
 
- 
-
-
+void list_db(struct db_header_t *dbhdr, struct employee_t *employees) {
+  int i = 0;
+  for (; i < dbhdr->count; i++) {
+    printf("Employee %d\n", i);
+    printf("\tName: %s\n", employees[i].name);
+    printf("\tAddress: %s\n", employees[i].addr);
+    printf("\tHours: %d\n", employees[i].hours);
+  } 
+}

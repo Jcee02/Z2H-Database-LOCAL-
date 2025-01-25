@@ -3,6 +3,8 @@
 
 #define HEADER_MAGIC 0x4c4c4144
 
+
+/* DISCLAIMER: double pointers in this program are used to modify heap allocated stuff out of function scope via realloc and several other procedures */
 struct db_header_t {
   unsigned int magic;  
   unsigned short version;
@@ -24,5 +26,6 @@ int validate_db_header(int fd, struct db_header_t **headerOut);
 int rd_employees(int fd, struct db_header_t *, struct employee_t **);
 int add_employee(struct db_header_t*, struct employee_t*, char* addstring);
 void output_file(int fd, struct db_header_t *dbhdr, struct employee_t *employees);
+void list_db(struct db_header_t*, struct employee_t*);
 
 #endif

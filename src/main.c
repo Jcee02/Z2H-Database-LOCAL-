@@ -6,8 +6,11 @@
 #include "../include/parse.h"
 #include "../include/status.h"
 
-
-#define OPSTR "nf:a:"
+/* n is a boolean flag for new file 
+ * f is a data argument (colon) to enter the name of a file (new if -n set up)
+ * a is a data argument (colon) to enter new entry to db file 
+ * l is a boolean flag for listing all of a db file entries */
+#define OPSTR "nf:a:l"
 
 void print_usage(char**);
 
@@ -16,6 +19,7 @@ int main(int argc, char *argv[]){
     char *filepath = NULL;
     char *addstring = NULL;
     bool newfile = false;
+    bool listing = false;
     int c;
     
     int dbfd = -1;
@@ -31,6 +35,9 @@ int main(int argc, char *argv[]){
                 break;
             case 'a':
                 addstring = optarg;
+                break;
+            case 'l':
+                listing = true;
                 break;
             case '?':
                 printf("Unknown option -%c\n", c);
@@ -78,6 +85,10 @@ int main(int argc, char *argv[]){
         dbhdr->count++;
         employees = realloc(employees, dbhdr->count*(sizeof(struct employee_t)));
         add_employee(dbhdr, employees, addstring);
+    }
+
+    if (listing) {
+        list_db(dbhdr, employees);
     }
     output_file(dbfd, dbhdr, employees);
 
